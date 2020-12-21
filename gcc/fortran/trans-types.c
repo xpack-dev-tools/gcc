@@ -2435,7 +2435,9 @@ gfc_get_ppc_type (gfc_component* c)
   else
     t = void_type_node;
 
-  return build_pointer_type (build_function_type_list (t, NULL_TREE));
+  /* FIXME: it would be better to provide explicit interfaces in all
+     cases, since they should be known by the compiler.  */
+  return build_pointer_type (build_function_type (t, NULL_TREE));
 }
 
 
