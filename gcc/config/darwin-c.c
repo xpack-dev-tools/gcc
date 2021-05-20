@@ -692,10 +692,10 @@ macosx_version_as_macro (void)
   if (!version_array)
     goto fail;
 
-  if (version_array[MAJOR] != 10)
+  if (version_array[MAJOR] < 10 || version_array[MAJOR] > 11)
     goto fail;
 
-  if (version_array[MINOR] < 10)
+  if (version_array[MAJOR] == 10 && version_array[MINOR] < 10)
     version_macro = version_as_legacy_macro (version_array);
   else
     version_macro = version_as_modern_macro (version_array);
@@ -706,7 +706,7 @@ macosx_version_as_macro (void)
   return version_macro;
 
  fail:
-  error ("unknown value %qs of -mmacosx-version-min",
+  error ("unknown value %qs of %<-mmacosx-version-min%>",
          darwin_macosx_version_min);
   return "1000";
 }
@@ -809,7 +809,8 @@ darwin_cfstring_ref_p (const_tree strp)
     tn = DECL_NAME (tn);
   return (tn 
 	  && IDENTIFIER_POINTER (tn)
-	  && !strncmp (IDENTIFIER_POINTER (tn), "CFStringRef", 8));
+	  && !strncmp (IDENTIFIER_POINTER (tn), "CFStringRef",
+		       strlen ("CFStringRef")));
 }
 
 /* At present the behavior of this is undefined and it does nothing.  */

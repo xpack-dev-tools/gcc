@@ -1036,25 +1036,34 @@ extern void darwin_driver_init (unsigned int *,struct cl_decoded_option **);
 #undef SUPPORTS_INIT_PRIORITY
 #define SUPPORTS_INIT_PRIORITY 0
 
+#undef STACK_CHECK_STATIC_BUILTIN
+#define STACK_CHECK_STATIC_BUILTIN 1
+
 /* When building cross-compilers (and native crosses) we shall default to 
    providing an osx-version-min of this unless overridden by the User.
    10.5 is the only version that fully supports all our archs so that's the
    fall-back default.  */
+#ifndef DEF_MIN_OSX_VERSION
 #define DEF_MIN_OSX_VERSION "10.5"
+#endif
 
 /* Later versions of ld64 support coalescing weak code/data without requiring
    that they be placed in specially identified sections.  This is the earliest
    _tested_ version known to support this so far.  */
-#define MIN_LD64_NO_COAL_SECTS "236.4"
+#define MIN_LD64_NO_COAL_SECTS "236.3"
 
 /* From at least version 62.1, ld64 can build symbol indirection stubs as
    needed, and there is no need for the compiler to emit them.  */
-#define MIN_LD64_OMIT_STUBS "85.2"
+#define MIN_LD64_OMIT_STUBS "62.1"
 
+/* If we have no definition for the linker version, pick the minimum version
+   that will bootstrap the compiler.  */
 #ifndef LD64_VERSION
-#define LD64_VERSION "62.1"
-#else
-#define DEF_LD64 LD64_VERSION
+# ifndef  DEF_LD64
+#  define LD64_VERSION "85.2.1"
+# else
+#  define LD64_VERSION DEF_LD64
+# endif
 #endif
 
 #endif /* CONFIG_DARWIN_H */
