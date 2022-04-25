@@ -2487,7 +2487,8 @@ riscv*-*-linux*)
 	# automatically detect that GAS supports it, yet we require it.
 	gcc_cv_initfini_array=yes
 	;;
-riscv*-*-elf* | riscv*-*-rtems*)
+# xPack GNU RISC-V Embed GCC.
+riscv*-*-elf* | riscv*-*-rtems* | riscv-none-embed)
 	tm_file="elfos.h newlib-stdint.h ${tm_file} riscv/elf.h"
 	case ${target} in
 	*-*-rtems*)
