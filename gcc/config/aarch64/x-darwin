@@ -1,0 +1,2 @@
+host-aarch64-darwin.o: $(srcdir)/config/aarch64/host-aarch64-darwin.c
+	$(COMPILER) -c $(ALL_COMPILERFLAGS) $(ALL_CPPFLAGS) $(INCLUDES) $<
