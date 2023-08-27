@@ -16,14 +16,14 @@
    Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA
    02110-1301, USA.  */
 
+#ifdef __MINGW32__
+#  include <windows.h>
+#endif
+
 #include "config.h"
 #include "system.h"
 #include "diagnostic-color.h"
 #include "diagnostic-url.h"
-
-#ifdef __MINGW32__
-#  include <windows.h>
-#endif
 
 #include "color-macros.h"
 
